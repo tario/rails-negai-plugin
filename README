@@ -1,13 +1,11 @@
 Rails-negai-plugin
 ==================
 
-Introduction goes here.
-
+Rails plugin for asynchronous execution of ruby scripts using negai gem
 
 Example
 =======
 
 Example goes here.
 
-
-Copyright (c) 2010 [name of plugin creator], released under the MIT license
+Copyright (c) 2010 Dario Seminara, released under the GPL License (see LICENSE)
