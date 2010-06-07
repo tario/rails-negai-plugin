@@ -25,8 +25,8 @@ class NegaiMigrationsGenerator < Rails::Generator::NamedBase
     record do |m|
       m.migration_template 'migration.rb', File.join('db', 'migrate'), :migration_file_name => 'create_negai_objects'
 
-      m.directory File.join('config', 'initializers')
-      m.template 'initializer.rb', File.join('config', 'initializers', 'rails_negai_plugin.rb')
+#      m.directory File.join('config', 'initializers')
+#      m.template 'initializer.rb', File.join('config', 'initializers', 'rails_negai_plugin.rb')
     end
   end
 end
