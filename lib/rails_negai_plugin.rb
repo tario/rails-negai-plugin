@@ -22,8 +22,6 @@ require "negai"
 # add models directory in ActiveSupport
 %w{ models }.each do |dir|
   path = File.join(File.dirname(__FILE__), 'app', dir)
-  print path,"\n"
-
   $LOAD_PATH << path
   ActiveSupport::Dependencies.load_paths << path
   ActiveSupport::Dependencies.load_once_paths.delete(path)
