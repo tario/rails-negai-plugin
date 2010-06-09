@@ -33,6 +33,7 @@ class Script < ActiveRecord::Base
   def run
     # run through negai using the current_user privileges
     e = create_execution
+    e.script = self
     e.run
   end
 
