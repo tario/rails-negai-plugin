@@ -26,6 +26,11 @@ class Execution < ActiveRecord::Base
 
   class << self
     attr_accessor :default_permissions
+
+    def default_permissions
+      @default_permissions ||= Shikashi::Privileges.new
+      @default_permissions
+    end
   end
 
   def run
