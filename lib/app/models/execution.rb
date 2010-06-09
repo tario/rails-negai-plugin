@@ -18,5 +18,35 @@ you should have received a copy of the gnu general public license
 along with negai.  if not, see <http://www.gnu.org/licenses/>.
 
 =end
+require "negai"
+
 class Execution < ActiveRecord::Base
+
+  belongs_to  :script
+
+  class << self
+    attr_accessor :default_permissions
+  end
+
+  def run
+    runner = Negai::Runner.new
+    runner.permissions = current_permissions
+    runner.run(script.content)
+  end
+
+  def async_run
+  end
+
+private
+  def current_permissions
+    if respond_to? :user
+      if user.respond_to? :negai_permissions
+        user.negai_privileges
+      else
+        Execution.default_permissions
+      end
+    else
+      Execution.default_permissions
+    end
+  end
 end

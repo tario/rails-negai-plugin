@@ -19,4 +19,32 @@ along with negai.  if not, see <http://www.gnu.org/licenses/>.
 
 =end
 class Script < ActiveRecord::Base
+
+  def create_execution
+    e = Execution.new
+    e.script_id = self.id
+    if block_given?
+      yield(e)
+    end
+    e.save
+    e
+  end
+
+  def run
+    # run through negai using the current_user privileges
+    e = create_execution
+    e.run
+  end
+
+  def async_run
+    e = create_execution
+    e.async_run
+  end
+
+private
+
+  def current_script_privileges
+
+  end
+
 end
