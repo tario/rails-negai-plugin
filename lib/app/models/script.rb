@@ -35,6 +35,8 @@ class Script < ActiveRecord::Base
     e = create_execution
     e.script = self
     e.run
+
+    e
   end
 
   def async_run
