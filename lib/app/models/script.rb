@@ -20,6 +20,8 @@ along with negai.  if not, see <http://www.gnu.org/licenses/>.
 =end
 class Script < ActiveRecord::Base
 
+  has_many  :executions
+
   def create_execution
     e = Execution.new
     e.script_id = self.id
