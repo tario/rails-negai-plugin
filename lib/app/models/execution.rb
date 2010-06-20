@@ -35,8 +35,7 @@ class Execution < ActiveRecord::Base
 
   def run
     runner = Negai::Runner.new
-    runner.permissions = current_permissions
-    runner.run(script.content)
+    runner.run(script.content, :privileges => current_permissions)
   end
 
   def async_run
@@ -46,7 +45,7 @@ private
   def current_permissions
     if respond_to? :user
       if user.respond_to? :negai_permissions
-        user.negai_privileges
+        user.negai_permissions
       else
         Execution.default_permissions
       end
