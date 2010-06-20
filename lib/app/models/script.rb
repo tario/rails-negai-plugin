@@ -22,6 +22,15 @@ class Script < ActiveRecord::Base
 
   has_many  :executions
 
+  # creates an execution associated with the script
+  #
+  #Example:
+  #  script = Script.find(params[:id])
+  #  if script
+  #    e = script.create_execution
+  #    e.run
+  #  end
+  #
   def create_execution
     e = Execution.new
     e.script_id = self.id
@@ -32,6 +41,13 @@ class Script < ActiveRecord::Base
     e
   end
 
+  #Creates an execution associated with the scripts and run that execution
+  #returns the created execution
+  #
+  #Example:
+  #
+  # script = Script.find(params[:id])
+  # script.run
   def run
     # run through negai using the current_user privileges
     e = create_execution
