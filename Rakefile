@@ -15,7 +15,7 @@ end
 
 desc 'Generate documentation for the rails_negai_plugin plugin.'
 Rake::RDocTask.new(:rdoc) do |rdoc|
-  rdoc.rdoc_dir = 'rdoc'
+  rdoc.rdoc_dir = 'doc'
   rdoc.title    = 'Rails-negai-plugin'
   rdoc.options << '--line-numbers' << '--inline-source'
   rdoc.rdoc_files.include('README')
