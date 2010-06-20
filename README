@@ -21,8 +21,7 @@ To install the last stable development version
   ./script/plugin install git://github.com/activescaffold/active_scaffold.git
 
 To install a development version with the last changes, go to http://github.com/tario/rails-negai-plugin or
-a old version, check the branches or tags in http://github.com/tario/rails-negai-plugin and install the plugin
- with the -r option, example:
+a old version, check the branches or tags in http://github.com/tario/rails-negai-plugin and install the plugin with the -r option, example:
 
   ./script/plugin install git://github.com/activescaffold/active_scaffold.git -r v0.2.0-dev
 
