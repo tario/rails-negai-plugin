@@ -6,9 +6,13 @@ with sandbox features.
 == An Overview
 
 The plugin provides two basic models: Script and Execution.
+
 The Script model represents the ruby scripts and contains basically the "content" string field with the
 contents of the script. The Execution model represents the executions of the scripts and has a reference
 to the corresponding script and the standard output of the script in the "output" field.
+
+The scripts executed with this plugin runs in an restricted environment, a sandbox configurable that
+allows the assigment of permissions by classes and methods
 
 == Install
 
