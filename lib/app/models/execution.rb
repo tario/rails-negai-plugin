@@ -25,7 +25,7 @@ class Execution < ActiveRecord::Base
   belongs_to  :script
 
   class << self
-    attr_accessor :default_permissions
+    attr_reader :default_permissions
 
     #The default permissions for all the script runs, usually accesed from
     #the config files
