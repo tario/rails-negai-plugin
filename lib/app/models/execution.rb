@@ -35,7 +35,7 @@ class Execution < ActiveRecord::Base
     #  Execution.default_permissions.allow_class_definitions
     #
     def default_permissions
-      @default_permissions ||= Shikashi::Privileges.new
+      @default_permissions ||= Negai.empty_privileges
       @default_permissions
     end
   end
