@@ -27,11 +27,33 @@ class Execution < ActiveRecord::Base
   class << self
     attr_accessor :default_permissions
 
+    #The default permissions for all the script runs, usually accesed from
+    #the config files
+    #Example:
+    #
+    #  Execution.default_permissions.allow_method :print
+    #  Execution.default_permissions.allow_class_definitions
+    #
     def default_permissions
       @default_permissions ||= Shikashi::Privileges.new
       @default_permissions
     end
   end
+
+  #run the execution with the corresponding permissions:
+  #Example:
+  #  script = Script.find(params[:id])
+  #  if script
+  #    e = script.create_execution
+  #    e.run
+  #  end
+  #
+  #NOTE: can use instead:
+  #  script = Script.find(params[:id])
+  #  if script
+  #    execution = script.run
+  #  end
+  #
 
   def run
     runner = Negai::Runner.new
