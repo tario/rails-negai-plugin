@@ -46,9 +46,6 @@ class Execution < ActiveRecord::Base
     save
   end
 
-  def async_run
-  end
-
 private
   def current_permissions
     if respond_to? :user

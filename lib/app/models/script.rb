@@ -39,15 +39,4 @@ class Script < ActiveRecord::Base
     e
   end
 
-  def async_run
-    e = create_execution
-    e.async_run
-  end
-
-private
-
-  def current_script_privileges
-
-  end
-
 end
