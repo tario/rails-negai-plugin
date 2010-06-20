@@ -1,11 +1,92 @@
-Rails-negai-plugin
-==================
+= Rails-negai-plugin
 
-Rails plugin for asynchronous execution of ruby scripts using negai gem
+Rails plugin for execution of ruby scripts using negai gem, pointing to build ruby execution environments on web
+with sandbox features.
 
-Example
-=======
+== An Overview
 
-Example goes here.
+The plugin provides two basic models: Script and Execution.
+The Script model represents the ruby scripts and contains basically the "content" string field with the
+contents of the script. The Execution model represents the executions of the scripts and has a reference
+to the corresponding script and the standard output of the script in the "output" field.
+
+== Install
+
+To install the last stable development version
+
+  ./script/plugin install git://github.com/activescaffold/active_scaffold.git
+
+To install a development version with the last changes, go to http://github.com/tario/rails-negai-plugin or
+a old version, check the branches or tags in http://github.com/tario/rails-negai-plugin and install the plugin
+ with the -r option, example:
+
+  ./script/plugin install git://github.com/activescaffold/active_scaffold.git -r v0.2.0-dev
+
+== Setup
+
+Generate the models used by the plugin
+
+  ./script/generate negai_migrations NegaiMigrations
+
+Update the data base of your application
+
+rake db:migrate
+
+== Config
+
+Add to your application config file ( config/enviroment.rb or config/environments/development.rb, etc...)
+the default permissions to the scripts (in other way, the scripts can't do nothing).
+Example (this allow the use of exception, the use of the method print and the class definitions):
+
+  dp = Execution.default_permissions
+  dp.allow_exceptions
+  dp.allow_method :print
+  dp.allow_method :method_added
+  dp.allow_class_definitions
+
+The permissions can be assigned conforming the shikashi API (see http://tario.github.com/shikashi/doc/classes/Shikashi/Privileges.html)
+
+== Usage
+
+The Script model has the "run" method, this method execute the scripts with the permissions defined in the config file. For each
+run an Execution is generated with the output of the script. (for more info see http://tario.github.com/rails-negai-plugin/doc)
+
+=== Example
+
+Typical actions in a ScriptsController:
+
+  def create
+    script = Script.new
+    script.content = params[:content]
+    script.save
+  end
+
+  def run
+    script = Script.find(params[:id])
+    execution = script.run
+
+    @output = execution.output
+  end
+
+=== Console testing
+
+  negai@negai-plugin-host:~/rails_negai_plugin_test$ ./script/console
+  Loading development environment (Rails 2.3.8)
+  >> script = Script.new
+  => #<Script id: nil, name: nil, content: nil, created_at: nil, updated_at: nil>
+  >> script.content = 'print "hello world\n"'
+  => "print \"hello world\\n\""
+  >> script.save
+  => true
+  >> script.run
+  hello world
+  => #<Execution id: 1, script_id: 1, output: "hello world\n", execution_time: nil, created_at: "2010-06-20 19:56:10", updated_at: "2010-06-20 19:56:10">
+  >> script.content = "system 'ls -l'"
+  => "system 'ls -l'"
+  >> script.run
+  SecurityError: Cannot invoke method system on object of class #<Class:#<Object:0x7fba2d3af298>>
+	from /home/dario/shikashi/lib/shikashi/sandbox.rb:216:in `handle_method'
+
+== Copying
 
 Copyright (c) 2010 Dario Seminara, released under the GPL License (see LICENSE)
