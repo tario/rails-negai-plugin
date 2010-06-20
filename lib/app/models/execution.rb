@@ -36,7 +36,7 @@ class Execution < ActiveRecord::Base
   def run
     runner = Negai::Runner.new
 
-    local_output << ""
+    local_output = ""
     runner.output_proc = proc do |data|
       local_output << data
     end
