@@ -35,7 +35,15 @@ class Execution < ActiveRecord::Base
 
   def run
     runner = Negai::Runner.new
+
+    local_output << ""
+    runner.output_proc = proc do |data|
+      local_output << data
+    end
     runner.run(script.content, :privileges => current_permissions)
+
+    self.output = local_output
+    save
   end
 
   def async_run
